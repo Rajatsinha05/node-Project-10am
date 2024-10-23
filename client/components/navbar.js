@@ -1,4 +1,16 @@
+let { token } = Cookies.get();
+
+const decodedToken = token ? jwt_decode(token) : undefined;
+
 const navbar = () => {
+  let tag = ``;
+  if (decodedToken) {
+    tag = `<a class="nav-link" >Logout</a>`;
+  } else {
+    tag = `<a class="nav-link" href="/pages/login.html">
+        login
+      </a>`;
+  }
   return `
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -26,10 +38,13 @@ const navbar = () => {
           <a class="nav-link" href="/pages/cart.html">cart</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/pages/login.html">login</a>
+        ${tag}
+       
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/pages/signup.html">signup</a>
+          <a class="nav-link" ${
+            decodedToken ? "" : ` href=/pages/signup.html`
+          }>${decodedToken ? decodedToken.username : "signup"}</a>
         </li>
       </ul>
       <form class="d-flex" role="search">
