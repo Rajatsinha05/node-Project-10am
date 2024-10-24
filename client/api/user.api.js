@@ -11,6 +11,7 @@ const userApi = {
       });
       let res = await req.json();
       Cookies.set("token", res.token, { expires: 1 / 24 });
+      Cookies.set("isVerified", res.isVerified);
       console.log(res);
       window.location.href = "/";
     } catch (error) {
@@ -28,6 +29,7 @@ const userApi = {
       });
       let res = await req.json();
       Cookies.set("token", res.token, { expires: 1 / 24 });
+      Cookies.set("isVerified", res.isVerified);
       window.location.href = "/";
     } catch (error) {
       console.log("Failed to sign up", error);

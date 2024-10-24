@@ -1,7 +1,11 @@
 let { token } = Cookies.get();
 
 const decodedToken = token ? jwt_decode(token) : undefined;
+const logOut = () => {
+  console.log("Decoded token");
 
+  Cookies.remove("token");
+};
 const navbar = () => {
   let tag = ``;
   if (decodedToken) {

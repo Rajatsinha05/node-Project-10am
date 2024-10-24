@@ -20,14 +20,28 @@ const Signup = async (req, res) => {
         username: user.username,
       };
       let token = await jwt.sign(data, "private-key");
-      let otp = Math.round(Math.random * 10000);
+      let otp = Math.round(Math.random() * 10000);
+      console.log(otp);
+
       otps.set(email, otp);
+      console.log(otps);
+
       let html = `<div > 
          <h1>hello ${user.username}</h1>
-         <a href=localhost:8090/user/verify/${token}/${otp}> verify</a>
+         <a href=http://localhost:8090/user/verify/${token}/${otp}> verify</a>
       </div>`;
+      console.log(
+        `<a href=http://localhost:8090/user/verify/${token}/${otp}> verify</a>`
+      );
+
       await sendMail(email, "verify", html);
-      return res.status(201).json({ msg: "user created", token: token });
+      return res
+        .status(201)
+        .json({
+          msg: "user created",
+          token: token,
+          isVerified: user.isVerified,
+        });
     }
   } catch (error) {
     res.status(500).json({ msg: "err", error: error.message });
@@ -51,7 +65,9 @@ const Login = async (req, res) => {
     username: user.username,
   };
   let token = await jwt.sign(data, "private-key");
-  return res.status(200).json({ msg: "user loggedIn", token: token });
+  return res
+    .status(200)
+    .json({ msg: "user loggedIn", token: token, isVerified: user.isVerified });
 };
 
 const GetUser = async (req, res) => {
@@ -79,6 +95,14 @@ const verifyUser = async (req, res) => {
   let oldOtp = otps.get(decode.email);
 
   if (oldOtp == otp) {
+    let data = await User.findByIdAndUpdate(
+      decode.id,
+      { isVerified: true },
+      { new: true }
+    );
+    res.status(200).json({ msg: "verified", data });
+  } else {
+    res.status(404).json({ err: "invalid otp" });
   }
 };
-module.exports = { Signup, Login, GetUser };
+module.exports = { Signup, Login, GetUser, verifyUser, deleteUser };
