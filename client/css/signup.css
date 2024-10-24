@@ -1,0 +1,93 @@
+/* Navbar Styles */
+.navbar {
+    background-color: #212529; /* A more stylish dark background */
+    padding: 15px 30px; /* Add more padding for a spacious look */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+  }
+  
+  .navbar-brand {
+    color: #f8f9fa;
+    font-size: 26px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .nav-link {
+    color: #adb5bd;
+    padding: 10px 15px;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    border-radius: 5px;
+  }
+  
+  .nav-link:hover {
+    color: #f8f9fa; /* Hover color */
+    background-color: #495057; /* Hover background for links */
+  }
+  
+  .navbar-toggler {
+    border-color: #adb5bd;
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23adb5bd' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+  
+  /* Search Bar Styles */
+  form.d-flex input {
+    border-radius: 25px;
+    border: 1px solid #ced4da;
+    padding: 10px 20px;
+  }
+  
+  form.d-flex button {
+    border-radius: 25px;
+    padding: 8px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+  }
+  
+  form.d-flex button:hover {
+    background-color: #218838;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  /* Form Styles */
+  #form {
+    margin-top: 60px;
+    max-width: 450px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #form input {
+    margin-bottom: 20px;
+    padding: 12px 15px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+  }
+  
+  #form input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #form input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Footer Space */
+  body {
+    padding-bottom: 50px; /* Add space for a sticky footer */
+  }
+  

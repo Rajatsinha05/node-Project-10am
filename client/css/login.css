@@ -1,0 +1,121 @@
+/* General Body Styles */
+body {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  /* Navbar Styling */
+  .navbar {
+    background-color: #343a40;
+    padding: 15px 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-brand {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .nav-link {
+    color: #adb5bd;
+    font-size: 16px;
+    margin-right: 15px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #fff;
+    background-color: #495057;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .navbar-toggler {
+    border-color: #adb5bd;
+  }
+  
+  /* Search Bar Styling */
+  form.d-flex input {
+    border-radius: 25px;
+    border: 1px solid #ced4da;
+    padding: 10px 20px;
+  }
+  
+  form.d-flex button {
+    border-radius: 25px;
+    padding: 8px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+  }
+  
+  form.d-flex button:hover {
+    background-color: #218838;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  /* Form Container */
+  #form {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-top: 30px;
+  }
+  
+  /* Input Fields */
+  #form input {
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+    background-color: #f1f3f5;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  #form input:focus {
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+  }
+  
+  /* Submit Button */
+  #form input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  #form input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 576px) {
+    #form {
+      padding: 30px;
+    }
+  
+    .navbar-brand {
+      font-size: 20px;
+    }
+  
+    .nav-link {
+      font-size: 14px;
+      margin-right: 10px;
+    }
+  }
+  
