@@ -18,6 +18,7 @@ const Signup = async (req, res) => {
         id: user.id,
         role: user.role,
         username: user.username,
+        isActive: user.isActive,
       };
       let token = await jwt.sign(data, "private-key");
       let otp = Math.round(Math.random() * 10000);
@@ -34,14 +35,16 @@ const Signup = async (req, res) => {
         `<a href=http://localhost:8090/user/verify/${token}/${otp}> verify</a>`
       );
 
-      await sendMail(email, "verify", html);
-      return res
-        .status(201)
-        .json({
-          msg: "user created",
-          token: token,
-          isVerified: user.isVerified,
-        });
+      try {
+        await sendMail(email, "verify", html);
+      } catch (error) {
+        return res.status(400).json({ message: error.message });
+      }
+      return res.status(201).json({
+        msg: "user created",
+        token: token,
+        isVerified: user.isVerified,
+      });
     }
   } catch (error) {
     res.status(500).json({ msg: "err", error: error.message });
@@ -63,11 +66,12 @@ const Login = async (req, res) => {
     id: user.id,
     role: user.role,
     username: user.username,
+    isActive: user.isActive,
   };
   let token = await jwt.sign(data, "private-key");
   return res
     .status(200)
-    .json({ msg: "user loggedIn", token: token, isVerified: user.isVerified });
+    .json({ msg: "user loggedIn", token: token, isVerified: user.isVerified,isActive: user.isActive });
 };
 
 const GetUser = async (req, res) => {
@@ -105,4 +109,13 @@ const verifyUser = async (req, res) => {
     res.status(404).json({ err: "invalid otp" });
   }
 };
-module.exports = { Signup, Login, GetUser, verifyUser, deleteUser };
+
+const getAdmins = async (req, res) => {
+try {
+    let data = await User.find({ role: "ADMIN" });
+    res.status(202).json(data);
+} catch (error) {
+  res.status(404).json({ err:error.message });
+}
+};
+module.exports = { Signup, Login, GetUser, verifyUser, deleteUser , getAdmins};

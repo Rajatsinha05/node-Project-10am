@@ -28,13 +28,18 @@ const userApi = {
         body: JSON.stringify(user),
       });
       let res = await req.json();
-      Cookies.set("token", res.token, { expires: 1 / 24 });
-      Cookies.set("isVerified", res.isVerified);
-      window.location.href = "/";
+      if (res.isActive) {
+        Cookies.set("token", res.token, { expires: 1 / 24 });
+        Cookies.set("isVerified", res.isVerified);
+        window.location.href = "/";
+      } else {
+        alert("not activated");
+      }
     } catch (error) {
       console.log("Failed to sign up", error);
     }
   },
+
 };
 
 export default userApi;

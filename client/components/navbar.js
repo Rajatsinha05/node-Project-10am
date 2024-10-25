@@ -5,11 +5,13 @@ const logOut = () => {
   console.log("Decoded token");
 
   Cookies.remove("token");
+  window.location.href = "/pages/login.html";
 };
+
 const navbar = () => {
   let tag = ``;
   if (decodedToken) {
-    tag = `<a class="nav-link" href="/pages/logout.html">Logout</a>`;
+    tag = `<a class="nav-link" id=logout>Logout</a>`;
   } else {
     tag = `<a class="nav-link" href="/pages/login.html">Login</a>`;
   }
@@ -39,6 +41,9 @@ const navbar = () => {
             <li class="nav-item">
               <a class="nav-link" href="/pages/cart.html">Cart</a>
             </li>
+             <li class="nav-item">
+              <a class="nav-link" href="/pages/profile.html">profile</a>
+            </li>
             <li class="nav-item">
               ${tag}
             </li>
@@ -64,3 +69,12 @@ const navbar = () => {
 };
 
 export default navbar;
+
+document.addEventListener("DOMContentLoaded", () => {
+  let logoutBtn = document.getElementById("logout");
+  console.log(logoutBtn);
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", logOut);
+  }
+});
