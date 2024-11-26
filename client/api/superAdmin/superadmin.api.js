@@ -12,8 +12,10 @@ const superAdminApi = {
       });
       let res = await req.json();
       return res;
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 
-export default superAdminApi
+export default superAdminApi;

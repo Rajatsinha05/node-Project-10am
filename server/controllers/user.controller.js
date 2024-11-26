@@ -69,9 +69,12 @@ const Login = async (req, res) => {
     isActive: user.isActive,
   };
   let token = await jwt.sign(data, "private-key");
-  return res
-    .status(200)
-    .json({ msg: "user loggedIn", token: token, isVerified: user.isVerified,isActive: user.isActive });
+  return res.status(200).json({
+    msg: "user loggedIn",
+    token: token,
+    isVerified: user.isVerified,
+    isActive: user.isActive,
+  });
 };
 
 const GetUser = async (req, res) => {
@@ -111,11 +114,27 @@ const verifyUser = async (req, res) => {
 };
 
 const getAdmins = async (req, res) => {
-try {
+  try {
     let data = await User.find({ role: "ADMIN" });
     res.status(202).json(data);
-} catch (error) {
-  res.status(404).json({ err:error.message });
-}
+  } catch (error) {
+    res.status(404).json({ err: error.message });
+  }
 };
-module.exports = { Signup, Login, GetUser, verifyUser, deleteUser , getAdmins};
+
+// verify admin by superadmin
+
+const verifyAdmin = async (req, res) => {
+  let { adminId } = req.params;
+  try {
+    let user = await User.findByIdAndUpdate(
+      adminId,
+      { isVerified: true },
+      { new: true }
+    );
+    res.status(200).json({ msg: "verified" }, { user });
+  } catch (error) {
+    res.status(404).json({ err: error.message });
+  }
+};
+module.exports = { Signup, Login, GetUser, verifyUser, deleteUser, getAdmins };
