@@ -132,9 +132,26 @@ const verifyAdmin = async (req, res) => {
       { isVerified: true },
       { new: true }
     );
+    try {
+      await sendMail(
+        user.email,
+        "account approval",
+        "<h1>account approved</h1>"
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
     res.status(200).json({ msg: "verified" }, { user });
   } catch (error) {
     res.status(404).json({ err: error.message });
   }
 };
-module.exports = { Signup, Login, GetUser, verifyUser, deleteUser, getAdmins };
+module.exports = {
+  Signup,
+  Login,
+  GetUser,
+  verifyUser,
+  deleteUser,
+  getAdmins,
+  verifyAdmin,
+};

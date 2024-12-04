@@ -8,6 +8,7 @@ const decode = async (req, res, next) => {
         let data = await jwt.verify(token, "private-key");
         if (data) {
           req.user = data;
+          req.body.user = data.id;
           next();
         }
       } catch (error) {
