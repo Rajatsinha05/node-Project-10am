@@ -31,9 +31,6 @@ const Signup = async (req, res) => {
          <h1>hello ${user.username}</h1>
          <a href=http://localhost:8090/user/verify/${token}/${otp}> verify</a>
       </div>`;
-      console.log(
-        `<a href=http://localhost:8090/user/verify/${token}/${otp}> verify</a>`
-      );
 
       try {
         await sendMail(email, "verify", html);
