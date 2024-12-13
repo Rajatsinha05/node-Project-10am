@@ -1,4 +1,5 @@
 import cartApi from "../api/cart.api.js";
+import { getBaseUrl } from "../api/config/api.config.js";
 import navbar from "../components/navbar.js";
 
 document.getElementById("navbar").innerHTML = navbar();
@@ -10,6 +11,28 @@ const handleQty = (id, opr) => {
     cartApi.removeQty(id);
   }
   window.location.reload();
+};
+
+const payment = async (amount) => {
+  const BaseUrl = getBaseUrl();
+  try {
+    let req = await fetch(`${BaseUrl}/cart/payment`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ amount: amount }),
+    });
+    let res = await req.json();
+    const options = {
+      key: "rzp_test_1eJt4xUEnDxmMV",
+      amount: res.amount,
+    };
+    const rpay = new Razorpay(options);
+    rpay.open();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 let totalPrice = 0;
@@ -43,6 +66,7 @@ const mapper = (data) => {
   amount.innerHTML = totalPrice;
   let btn = document.createElement("button");
   btn.innerHTML = "Pay";
+  btn.addEventListener("click", () => payment(totalPrice));
   let div = document.createElement("div");
 
   div.append(amount, btn);
