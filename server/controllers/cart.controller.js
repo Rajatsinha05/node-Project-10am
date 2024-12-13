@@ -1,5 +1,5 @@
 const Cart = require("../models/cart.model");
-
+const Razorpay = require("razorpay");
 const getCartByUserId = async (req, res) => {
   const userId = req.user.id;
   try {
@@ -74,10 +74,33 @@ const removeQuantity = async (req, res) => {
   }
 };
 
+const razorpay = new Razorpay({
+  key_id: "rzp_test_1eJt4xUEnDxmMV",
+  key_secret: "N74jjIAr2mbCob4lizRZHCvh",
+});
+
+
+const checkout = async (req, res) => {
+  const { amount } = req.body;
+
+  const options = {
+    amount: amount * 100,
+    currency: "INR",
+  };
+
+  try {
+    let data = await razorpay.orders.create(options);
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send({ err: error });
+  }
+};
+
 module.exports = {
   getCartByUserId,
   addQuantity,
   removeQuantity,
   removeFromCart,
   addToCart,
+  checkout,
 };

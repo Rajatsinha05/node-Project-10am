@@ -1,8 +1,6 @@
 const Product = require("../models/product.model");
 
 const createProduct = async (req, res) => {
-
-
   if (req.file) {
     req.body.img = req.file.path;
   }
